@@ -7,6 +7,7 @@ import { IoLogOutSharp } from "react-icons/io5";
 import { usePathname } from 'next/navigation';
 import { Link } from 'lucide-react';
 import { Progress } from '/components/ui/progress.jsx';
+
 function SideBar() {
     const Menu=[
         {
@@ -37,15 +38,15 @@ function SideBar() {
     const path=usePathname();
   return (
     <div className='fixed bg-white md:w-64 h-full p-5 shadow-md'>
-    <div>
-    <h1 className="p-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-serif text-transparent sm:text-2.5xl "> LearnLab.ai</h1>
+    <div className='flex'>
+    <h1  className={`p-1.5 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-serif text-transparent sm:text-2.5xl `}> LearnLab.ai</h1>
     </div>
     <hr />
     <ul>
         {Menu.map((item,index)=>(
-            <a href={item.path}>
-            <div key={index} className={`flex items-center gap-2 mb-4 text-gray-600 p-8 cursor-pointer hover:bg-gray-100 hover:text-black rounded ${item.path==path &&'bg-gray-100 text-black'}`}>
-                <div className='text-3xl'>
+            <a key={index} href={item.path}>
+            <div  className={`flex items-center gap-2 mb-4 text-gray-600 p-5 cursor-pointer hover:bg-gray-100 hover:text-black rounded ${item.path==path &&'bg-gray-100 text-black'}`}>
+                <div className='text-xl'>
                     {item.icon}
                 </div>
 
