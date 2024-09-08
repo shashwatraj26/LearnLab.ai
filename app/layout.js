@@ -1,6 +1,4 @@
-import {Permanent_Marker
-
-  ,Outfit} from "next/font/google";
+import {Permanent_Marker,Outfit} from "next/font/google";
 import "./globals.css";
 import {ClerkProvider} from '@clerk/nextjs'
 import { shadesOfPurple } from "@clerk/themes";

@@ -5,7 +5,6 @@ import { RiSearchFill } from "react-icons/ri";
 import { FaShieldHalved } from "react-icons/fa6";
 import { IoLogOutSharp } from "react-icons/io5";
 import { usePathname } from 'next/navigation';
-import { Link } from 'lucide-react';
 import { Progress } from '/components/ui/progress.jsx';
 
 function SideBar() {

@@ -1,7 +1,10 @@
 'use client'
 import React, { useState } from 'react'
 import {HiClipboardDocumentCheck, HiLightBulb, HiMiniSquares2X2} from "react-icons/hi2";
-import {Button} from '/components/ui/button'
+import {Button} from '/components/ui/button';
+import SelectCategory from './_components/SelectCategory';
+import TopicDescription from './_components/TopicDescription'
+import SelectOption from './_components/SelectOption';
 function CreateCourse() {
     const StepperOptions=[
         {
@@ -35,7 +38,7 @@ function CreateCourse() {
                     ${activeIndex >=index && 'bg-blue-600'}`}>
                         {item.icon}
                     </div>
-                    <h2 className='hidden text-white md:flex md:justify-center md:items-center md:block md:text-sm '>{item.name}</h2>
+                    <h2 className='hidden text-white ~ md:justify-center md:items-center md:block md:text-sm '>{item.name}</h2>
                 </div>
                 {index!=StepperOptions?.length-1 &&<div className={`h-1 w-[50px] md:w-[100px] rounded full lg:w-[170px] bg-black ${activeIndex-1>=index &&'bg-blue-600'}`}></div>}
                  </div>
@@ -45,11 +48,13 @@ function CreateCourse() {
         </div>
         <div className='px-10 md:px-20 lg:px-44 mt-10'>
         {/* component */}
-
+        {activeIndex==0?<SelectCategory/>:
+        activeIndex==1?<TopicDescription/>:
+        activeIndex==2?<SelectOption/>:null}
         {/* Next Previous Button */}
         <div className='flex justify-between mt-10'>
         <Button disabled={activeIndex==0}  onClick={()=>setActiveIndex(activeIndex-1)}>Previous</Button>
-            <Button disabled={activeIndex==StepperOptions.length-1} onClick={()=>setActiveIndex(activeIndex+1)}>Next</Button>
+        {activeIndex<StepperOptions.length-1 &&   <Button disabled={activeIndex==StepperOptions.length-1} onClick={()=>setActiveIndex(activeIndex+1)}>Next</Button>}
             {activeIndex==StepperOptions.length-1 &&<Button>Generate Course layout</Button>}
         </div>
         </div>
