@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Select,
     SelectContent,
@@ -7,13 +7,21 @@ import {
     SelectValue,
   } from "/components/ui/select";
  import {Input} from '/components/ui/input' 
+import { UserInputContext } from '../../_context/UserInputContext';
 function SelectOption() {
+  const {userCourseInput,setUserCourseInput}=useContext(UserInputContext);
+const handleInputChange=(fieldName,value)=>{
+  setUserCourseInput(prev=>({
+    ...prev,
+    [fieldName]:value
+  }))
+}
   return (
     <div className='px-10 md:px-20 lg:px-40'>
         <div className='grid grid-cols-2 gap-10'>
             <div>
             <label className='text-sm text-white'>Difficulty Level</label>
-        <Select>
+        <Select onValueChange={(value)=>handleInputChange('level',value)}>
   <SelectTrigger className="">
     <SelectValue placeholder="Select" />
   </SelectTrigger>
@@ -22,11 +30,11 @@ function SelectOption() {
     <SelectItem value="Intermediate">Intermediate</SelectItem>
     <SelectItem value="Advance">Advance</SelectItem>
   </SelectContent>
-</Select>
+</Select >
 </div> 
 <div>
             <label className='text-sm text-white'>Course Duration</label>
-        <Select>
+        <Select onValueChange={(value)=>handleInputChange('duration',value)}>
   <SelectTrigger className="">
     <SelectValue placeholder="Select" />
   </SelectTrigger>
@@ -35,11 +43,11 @@ function SelectOption() {
     <SelectItem value="2 hours">2 hours</SelectItem>
     <SelectItem value="More than 2 hours">More than 2 hours</SelectItem>
   </SelectContent>
-</Select>
+</Select >
 </div> 
 <div>
             <label className='text-sm text-white'>Add Videos</label>
-        <Select>
+        <Select onValueChange={(value)=>handleInputChange('displayVideo',value)}>
   <SelectTrigger className="">
     <SelectValue placeholder="Select" />
   </SelectTrigger>
@@ -50,8 +58,9 @@ function SelectOption() {
 </Select>
 </div>
 <div>
-    <label className='text-sm'>No Of Chapters</label>
-    <Input type="number"/>
+    <label className='text-sm text-white'>No Of Chapters</label>
+    <Input type="number" className="text-foreground"
+    onChange={(e)=>handleInputChange('noOfChapter',e.target.value)}/>
 </div>
 
         </div>

@@ -1,10 +1,11 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {HiClipboardDocumentCheck, HiLightBulb, HiMiniSquares2X2} from "react-icons/hi2";
 import {Button} from '/components/ui/button';
 import SelectCategory from './_components/SelectCategory';
 import TopicDescription from './_components/TopicDescription'
 import SelectOption from './_components/SelectOption';
+import { UserInputContext } from '../_context/UserInputContext';
 function CreateCourse() {
     const StepperOptions=[
         {
@@ -23,7 +24,12 @@ function CreateCourse() {
         icon:<HiClipboardDocumentCheck/>
     },
 ]
-    const [activeIndex,setActiveIndex]=useState(0);
+const {userCourseInput,setUserCourseInput}=useContext(UserInputContext);
+
+useEffect(()=>{
+    console.log(userCourseInput);
+},[userCourseInput]);
+const [activeIndex,setActiveIndex]=useState(0);
   return (
     <div>
         {/* Stepper */}
@@ -32,7 +38,7 @@ function CreateCourse() {
                 Create Course
             </h2><div className='flex mt-10 '>
              {StepperOptions.map((item,index)=>(
-                <div key={item} className='flex items-center'>
+                <div key={index} className='flex items-center'>
                     <div className='flex flex-col items-center w-[50px] md:w-[100px]'>
                     <div className={`bg-black p-3 rounded-full text-white 
                     ${activeIndex >=index && 'bg-blue-600'}`}>
