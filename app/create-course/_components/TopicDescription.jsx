@@ -15,12 +15,13 @@ const handleInputChange=(fieldName,value)=>{
        {/* InputTopic */}
        <div className='mt-5'> 
         <label className='text-white'>Write a Topic for which you want to generate a course(e.g., Python Course, Yoga, etc.):</label>
-        <Input placeholder={'Topic'} className='h-14 text-xl' 
+        <Input placeholder={'Topic'} className='h-14 text-xl' defaultValue={userCourseInput?.topic}
         onChange={(e)=>handleInputChange('topic',e.target.value)}/>
        </div>
        <div className='mt-5'>
         <label className='text-white'>Tell us more about your course, what you want to include</label>
         <Textarea placeholder="About your Course" className='h-14 text-xl text-white' 
+        defaultValue={userCourseInput?.description}
         onChange={(e)=>handleInputChange('description',e.target.value)}/>
        </div>
        {/* Text Area Desc*/} 

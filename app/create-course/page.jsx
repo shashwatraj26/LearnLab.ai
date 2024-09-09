@@ -29,6 +29,31 @@ const {userCourseInput,setUserCourseInput}=useContext(UserInputContext);
 useEffect(()=>{
     console.log(userCourseInput);
 },[userCourseInput]);
+
+const checkStatus=()=>{
+    if(userCourseInput?.length==0)
+        return true;
+    if(activeIndex==0 && (userCourseInput?.category?.length==0 || userCourseInput?.category?.length==undefined))
+        return true;
+    if(activeIndex==1 && (userCourseInput?.topic?.length==0 || userCourseInput?.topic?.length==undefined))
+        return true;
+    if(activeIndex==1 && (userCourseInput?.description?.length==0 || userCourseInput?.description?.length==undefined))
+        return true;
+    
+    if(activeIndex==2 && (userCourseInput?.displayVideo
+        ?.length==0 || userCourseInput?.displayVideo
+        ?.length==undefined))
+        return true;
+    if(activeIndex==2 && (userCourseInput?.duration?.length==0 || userCourseInput?.duration?.length==undefined))
+        return true;
+    if(activeIndex==2 && (userCourseInput?.level?.length==0 || userCourseInput?.level?.length==undefined))
+        return true;
+    if(activeIndex==2 && (userCourseInput?.noOfChapter?.length==0 || userCourseInput?.noOfChapter?.length==undefined))
+        return true;
+
+    return false;
+}
+
 const [activeIndex,setActiveIndex]=useState(0);
   return (
     <div>
@@ -60,8 +85,8 @@ const [activeIndex,setActiveIndex]=useState(0);
         {/* Next Previous Button */}
         <div className='flex justify-between mt-10'>
         <Button disabled={activeIndex==0}  onClick={()=>setActiveIndex(activeIndex-1)}>Previous</Button>
-        {activeIndex<StepperOptions.length-1 &&   <Button disabled={activeIndex==StepperOptions.length-1} onClick={()=>setActiveIndex(activeIndex+1)}>Next</Button>}
-            {activeIndex==StepperOptions.length-1 &&<Button>Generate Course layout</Button>}
+        {activeIndex<StepperOptions.length-1 &&   <Button disabled={checkStatus() ||activeIndex==StepperOptions.length-1} onClick={()=>setActiveIndex(activeIndex+1)}>Next</Button>}
+            {activeIndex==StepperOptions.length-1 &&<Button disabled={checkStatus()}>Generate Course layout</Button>}
         </div>
         </div>
     </div>

@@ -21,7 +21,7 @@ const handleInputChange=(fieldName,value)=>{
         <div className='grid grid-cols-2 gap-10'>
             <div>
             <label className='text-sm text-white'>Difficulty Level</label>
-        <Select onValueChange={(value)=>handleInputChange('level',value)}>
+        <Select defaultValue={userCourseInput?.level} onValueChange={(value)=>handleInputChange('level',value)}>
   <SelectTrigger className="">
     <SelectValue placeholder="Select" />
   </SelectTrigger>
@@ -34,7 +34,7 @@ const handleInputChange=(fieldName,value)=>{
 </div> 
 <div>
             <label className='text-sm text-white'>Course Duration</label>
-        <Select onValueChange={(value)=>handleInputChange('duration',value)}>
+        <Select defaultValue={userCourseInput?.duration} onValueChange={(value)=>handleInputChange('duration',value)}>
   <SelectTrigger className="">
     <SelectValue placeholder="Select" />
   </SelectTrigger>
@@ -47,7 +47,7 @@ const handleInputChange=(fieldName,value)=>{
 </div> 
 <div>
             <label className='text-sm text-white'>Add Videos</label>
-        <Select onValueChange={(value)=>handleInputChange('displayVideo',value)}>
+        <Select defaultValue={userCourseInput?.displayVideo} onValueChange={(value)=>handleInputChange('displayVideo',value)}>
   <SelectTrigger className="">
     <SelectValue placeholder="Select" />
   </SelectTrigger>
@@ -60,6 +60,7 @@ const handleInputChange=(fieldName,value)=>{
 <div>
     <label className='text-sm text-white'>No Of Chapters</label>
     <Input type="number" className="text-foreground"
+    defaultValue={userCourseInput?.noOfChapter}
     onChange={(e)=>handleInputChange('noOfChapter',e.target.value)}/>
 </div>
 
