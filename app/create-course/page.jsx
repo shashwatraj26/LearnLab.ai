@@ -6,6 +6,14 @@ import SelectCategory from './_components/SelectCategory';
 import TopicDescription from './_components/TopicDescription'
 import SelectOption from './_components/SelectOption';
 import { UserInputContext } from '../_context/UserInputContext';
+import {GenerateCourseLayout_Ai} from '/configs/AiModel'
+import LoadingDialog from './_components/LoadingDialog'
+import uuid4 from 'uuid4';
+import { useUser } from '@clerk/nextjs';
+import {db} from '/configs/db';
+import { CourseList } from '/configs/schema';
+import { useRouter } from 'next/navigation';
+
 function CreateCourse() {
     const StepperOptions=[
         {
@@ -55,6 +63,47 @@ const checkStatus=()=>{
 }
 
 const [activeIndex,setActiveIndex]=useState(0);
+
+const [loading,setLoading]=useState(false );
+
+const {user}=useUser();
+
+const router=useRouter();
+
+const GenerateCourseLayout=async()=>{
+    setLoading(true);
+    const BASIC_PROMPT='Generate A Course Tutorial on Following Detail With field as Course Name, Description, Along with Chapter Name, about, Duration:'
+    const USER_INPUT_PROMPT= 'Category: '+userCourseInput?.category+', Topic:'+userCourseInput?.topic+', Level:'+userCourseInput?.level+', Duration:'+userCourseInput?.duration+', NoOfChapters:'+userCourseInput?.noOfChapter+', in JSON format'
+    const FINAL_PROMPT=BASIC_PROMPT+USER_INPUT_PROMPT;
+    console.log(FINAL_PROMPT);
+    const result=await GenerateCourseLayout_Ai.sendMessage(FINAL_PROMPT);
+    console.log(result.response?.text());
+    console.log(JSON.parse(result.response?.text()));
+    
+    setLoading(false);
+    SaveCourseLayoutInDb(JSON.parse(result.response?.text()));
+
+}
+const SaveCourseLayoutInDb=async(courseLayout)=>{
+    var id=uuid4();
+    setLoading(true);
+    const result=await db.insert(CourseList).values({
+        courseId:id,
+        name:userCourseInput?.topic,
+        level:userCourseInput?.level,
+        category:userCourseInput?.category,
+        courseOutput:courseLayout,
+        createdBy:user?.primaryEmailAddress?.emailAddress,
+        userName:user?.fullName,
+        userProfileImage:user?.imageUrl
+    });
+    console.log("Finish");
+    
+
+    setLoading(false);
+    router.replace('/create-course/'+id)
+}
+
   return (
     <div>
         {/* Stepper */}
@@ -86,9 +135,12 @@ const [activeIndex,setActiveIndex]=useState(0);
         <div className='flex justify-between mt-10'>
         <Button disabled={activeIndex==0}  onClick={()=>setActiveIndex(activeIndex-1)}>Previous</Button>
         {activeIndex<StepperOptions.length-1 &&   <Button disabled={checkStatus() ||activeIndex==StepperOptions.length-1} onClick={()=>setActiveIndex(activeIndex+1)}>Next</Button>}
-            {activeIndex==StepperOptions.length-1 &&<Button disabled={checkStatus()}>Generate Course layout</Button>}
+            {activeIndex==StepperOptions.length-1 &&<Button disabled={checkStatus()}
+            onClick={()=>GenerateCourseLayout()}
+            >Generate Course layout</Button>}
         </div>
         </div>
+        <LoadingDialog loading={loading}/>
     </div>
   )
 }
