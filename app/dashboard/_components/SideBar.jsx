@@ -1,13 +1,15 @@
 'use client';
-import React from 'react'
+import React, { useContext } from 'react'
 import { TiHome } from "react-icons/ti";
 import { RiSearchFill } from "react-icons/ri";
 import { FaShieldHalved } from "react-icons/fa6";
 import { IoLogOutSharp } from "react-icons/io5";
 import { usePathname } from 'next/navigation';
 import { Progress } from '/components/ui/progress.jsx';
+import { UserCourseListContext } from '../../_context/UserCourseListContext';
 
 function SideBar() {
+    const {userCourseList,setUserCourseList}=useContext(UserCourseListContext)
     const Menu=[
         {
             id:1,
@@ -55,8 +57,8 @@ function SideBar() {
         ))}
     </ul>
     <div className='absolute bottom-10 w-[80%]'>
-        <Progress value={33}/>
-        <h2 className='text-sm my-2 text-black'>3 Out of 5 Courses Created</h2>
+        <Progress value={(userCourseList?.length/5)*100}/>
+        <h2 className='text-sm my-2 text-black'>{userCourseList?.length} Out of 5 Courses Created</h2>
         <h2 className='text-xs text-gray-500'>Upgrade your plan to create more courses</h2>
     </div>
     </div>

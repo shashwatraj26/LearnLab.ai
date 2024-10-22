@@ -9,20 +9,17 @@ function Hero() {
       <h1
         className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
       >
-        Understand User Flow.
-
-        <span className="sm:block"> Increase Conversion. </span>
+        LearnLab.ai - Course Generator
       </h1>
 
       <p className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo tenetur fuga ducimus
-        numquam ea!
+      Generate a structured curriculum, including topics, lessons, and relevant resources like videos and streamline your learning process, with tailored content to match your individual learning goals and preferences!
       </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-4">
         <a
           className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
-          href="#"
+          href="/dashboard"
         >
           Get Started
         </a>
